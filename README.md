@@ -17,24 +17,21 @@ Backlogからプロジェクトをエクスポートする
 
 :warning: 各ファイルがSJISになっていることを確認！
 
-exportBacklog.ps1
+`_auth.bat`を`auth.bat`にリネームし、
 
-```
-# BacklogのAPI
-$BACKLOG_API = "https://spaceId.backlog.jp/api/v2"
-# バックアップしたいプロジェクトキー
-$PROJECT_KEY = "projectId"
-# BacklogのAPIキー
-$API_KEY = "backlogApiKey"
-# バックアップの出力先
-$OUTPUT_DIR = "output"
+```bat
+set API_KEY=xxxxxxxxxxxxxxxx
 ```
 
-あたりをいい感じに調整し、export.batを実行する
+部分を実際のAPIキーに変更し以下のコマンドを実行
+
+```bat
+export.bat スペースID プロジェクトKey 出力ディレクトリ
+```
 
 ## 実行結果
 
-`$OUTPUT_DIR`で指定したディレクトリに以下のように出力される
+出力ディレクトリで指定したディレクトリに以下のように出力される
 
 - Wiki：`PROJECT_KEY\wiki`
 - 課題：`PROJECT_KEY\issue`

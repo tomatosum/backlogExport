@@ -1,3 +1,5 @@
+Param($spaceId, $projectKey, $apiKey, $outputDir)
+
 # TLS1.2に切り替える
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
 
@@ -6,25 +8,23 @@
 . ".\exportIssue.ps1"
 . ".\exportFile.ps1"
 
-# BacklogのAPI
-$BACKLOG_API = "https://spaceId.backlog.jp/api/v2"
-# バックアップしたいプロジェクトキー
-$PROJECT_KEY = "projectId"
-# BacklogのAPIキー
-$API_KEY = "backlogApiKey"
-# バックアップの出力先
-$OUTPUT_DIR = "output"
+# BacklogAPIのURL
+$BACKLOG_API = "https://${spaceId}.backlog.jp/api/v2"
 
 # バックアップの出力ディレクトリを作成
-if (!(Test-Path $OUTPUT_DIR)) {
-    New-Item $OUTPUT_DIR -ItemType Directory | Out-Null
+if (!(Test-Path $outputDir)) {
+    New-Item $outputDir -ItemType Directory | Out-Null
 }
-# 出力ディレクトリに移動
-Set-Location .\output
 
-Export-Wiki $BACKLOG_API $PROJECT_KEY $API_KEY
-Export-Issue $BACKLOG_API $PROJECT_KEY $API_KEY
-Export-File $BACKLOG_API $PROJECT_KEY $API_KEY
+# 現在のディレクトリを取得
+$currentDir = [System.IO.Directory]::GetCurrentDirectory()
+
+# 出力ディレクトリに移動
+Set-Location $outputDir
+
+Export-Wiki $BACKLOG_API $projectKey $apiKey
+Export-Issue $BACKLOG_API $projectKey $apiKey
+Export-File $BACKLOG_API $projectKey $apiKey
 
 # 出力ディレクトリから元のディレクトリに戻る
-Set-Location ..\
+Set-Location $currentDir
