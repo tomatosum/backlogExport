@@ -34,7 +34,7 @@ function Export-Issue($backlogApiUrl, $projectKey, $apiKey) {
     # 課題出力ディレクトリ作成
     function MakeIssueDir($issue, $proj) {
         $issueDir = $issue.summary
-        $issueDir = "${proj}\issue\${issueDir}"
+        $issueDir = "${proj}\issue\$($issue.id)-${issueDir}"
         # 課題ページ名でディレクトリを作成する
         New-Item $issueDir -ItemType Directory | Out-Null
 
